@@ -5,7 +5,7 @@ import tweepy
 #Edite o arquivo sample_auth.py com as credenciais corretas e salve como auth.py
 from auth import *
 
-auth = tweepy.OAuthHandler(consumer_key(),consumer_secret())
+auth = tweepy.OAuthHandler(consumer_key(),consumer_secret(),callback="oob")
 
 try:
     redirect_url = auth.get_authorization_url()
