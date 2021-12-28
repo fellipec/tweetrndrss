@@ -3,6 +3,11 @@ import tweepy
 import feedparser
 import random
 import sqlite3
+import ssl
+
+#Contorno para erros do SSL com o feedparser
+if hasattr(ssl, '_create_unverified_context'):
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 #Informações de autenticação estão no arquivo auth.py
 #Edite o arquivo sample_auth.py com as credenciais corretas e salve como auth.py
@@ -41,7 +46,7 @@ cur.execute('SELECT ID, TITLE FROM RSS WHERE ROWID = ?',(rndArticleID,))
 article = cur.fetchone()
 
 #Gera um Tuite com o título e URL do artigo
-TweetText = "OLD: " + article[1]
+TweetText = "Artigo antigo. Confira: " + article[1]
 TweetText = TweetText[0:270-len(article[0])] + " " + article[0]
 print(TweetText)
 
