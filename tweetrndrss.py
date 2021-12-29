@@ -14,7 +14,7 @@ if hasattr(ssl, '_create_unverified_context'):
 from auth import *
 
 #Definições
-NewsFeed = feedparser.parse("https://somesite.net/feed/")
+NewsFeed = feedparser.parse("https://www.reddit.com/r/ScarlettJohansson/.rss")
 
 #Inicialização do Banco de Dados
 conn = sqlite3.connect('rss.db')
@@ -25,7 +25,8 @@ cur.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND nam
 if cur.fetchone()[0]==0 : #Tabela RSS não existe, cria-se a tabela
     conn.execute('''CREATE TABLE RSS (
     ID    CHAR(50) PRIMARY KEY NOT NULL,
-    TITLE TEXT                 NOT NULL);''')
+    TITLE TEXT                 NOT NULL,
+    LINK  TEXT);''')
     print("Tabela RSS Criada")
     conn.commit()
 else :
@@ -33,7 +34,7 @@ else :
 
 #Insere o RSS no banco de dados
 for entry in NewsFeed.entries:
-    cur.execute("INSERT OR IGNORE INTO RSS VALUES (?, ?)",(entry.id,entry.title))
+    cur.execute("INSERT OR IGNORE INTO RSS VALUES (?, ?, ?)",(entry.id,entry.title,entry.link))
     conn.commit()
 
 #Recupera o total de artigos salvos no banco de dados e sorteia um
@@ -42,11 +43,11 @@ total = int(cur.fetchone()[0])
 rndArticleID = random.randint(1,total)
 
 #Recupera a entrada com o ID aleatório escolhido
-cur.execute('SELECT ID, TITLE FROM RSS WHERE ROWID = ?',(rndArticleID,))
+cur.execute('SELECT LINK, TITLE FROM RSS WHERE ROWID = ?',(rndArticleID,))
 article = cur.fetchone()
 
 #Gera um Tuite com o título e URL do artigo
-TweetText = "Artigo antigo. Confira: " + article[1]
+TweetText = "Scarlett! " #+ article[1]
 TweetText = TweetText[0:270-len(article[0])] + " " + article[0]
 print(TweetText)
 
