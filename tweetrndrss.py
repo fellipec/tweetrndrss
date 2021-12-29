@@ -50,7 +50,7 @@ cur.execute('SELECT LINK, TITLE, MEDIA FROM RSS WHERE ROWID = ?',(rndArticleID,)
 article = cur.fetchone()
 
 #Gera um Tuite com o título e URL do artigo
-TweetText = "Scarlett! " + article[1]
+TweetText = "Scarlett! \n" + article[1]
 TweetText = TweetText[0:200-len(article[0])] + " " + article[0]
 r = requests.get(article[2])
 pic = open('scarlett.jpg','wb')
