@@ -6,6 +6,7 @@ import random
 import sqlite3
 import ssl
 import requests
+import datetime
 
 #Contorno para erros do SSL com o feedparser
 #Workarround to SSL errors with feedparser
@@ -22,9 +23,25 @@ from auth import *
 #Global definitions
 FeedURL = "https://www.reddit.com/r/ScarlettJohansson/.rss"
 TweetMessage = 'Scarlett! \n'
+useToD = True
+TweetMorning = 'Scarlett passando para desejar um bom dia\n\n'
+TweetAfternoon = 'Scarlett passando para desejar uma boa tarde\n\n'
+TweetEvening = 'Scarlett passando para desejar uma boa noite\n\n'
 TweetSize = 200
 useImage = True
 imageFile = 'scarlett.jpg'
+
+#Mensagem variável conforme a hora do dia
+#Message changing with time of day
+if useToD:
+    currentTime = datetime.datetime.now()
+    if currentTime.hour < 12:
+        TweetMessage = TweetMorning
+    elif 12 <= currentTime.hour < 18:
+        TweetMessage = TweetAfternoon
+    else:
+        TweetMessage = TweetEvening
+
 
 #Inicialização do Banco de Dados
 #Database init
