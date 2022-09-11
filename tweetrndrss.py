@@ -85,7 +85,7 @@ article = cur.fetchone()
 
 #Gera um Tuite com o título e URL do artigo
 #Generates the Tweet
-TweetText = TweetMessage + article[1]
+TweetText = TweetMessage # + article[1]
 TweetText = TweetText[0:TweetSize-len(article[0])] + " " + article[0]
 print(TweetText)
 
