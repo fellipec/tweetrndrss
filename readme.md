@@ -1,3 +1,6 @@
+### Warning! Because the API access to X (Formely Twitter) was disabled, this software doesn't work anymore and this repository will be archived
+### Aviso! Como o acesso à API do X (anteriormente Twitter) foi desativado, este software não funciona mais e este repositório será arquivado.
+
 TweetRndRSS
 ===========
 
